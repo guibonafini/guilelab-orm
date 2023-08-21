@@ -1,0 +1,1 @@
+Inspirado no [Sequelize](https://www.npmjs.com/package/sequelize).

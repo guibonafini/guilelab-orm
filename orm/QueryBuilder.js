@@ -2,11 +2,23 @@ const dayjs = require("dayjs");
 const { Op } = require("./Op");
 const { Sign } = require("./Sign");
 
+const isJson = (content) => {
+    try {
+        JSON.stringify(content);
+        return true;
+    } catch(err) {
+        return false;
+    }
+}
+
 const scope = (content) => `(${content})`;
 const escape = (value) => {
     if (value === null) {
         return 'NULL';
     } else if (typeof value == 'string') {
+        if(isJson(value)) {
+            return `'${JSON.stringify(value)}'`;
+        }
         return `"${value}"`;
     } else if (value instanceof Date) {
         return escape(dayjs(value).format('YYYY-MM-DD HH:mm:ss'));
